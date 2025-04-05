@@ -1,0 +1,27 @@
+﻿<Page x:Class="StoreSystem.StoresPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Background="#FFF3F3D6">
+
+    <Grid>
+        <Label Content="Магазины" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" Margin="0,10,0,0"/>
+
+        <!-- Таблица магазинов -->
+        <ListView x:Name="StoresListView" Height="300" Width="500" Margin="150,60,150,0" VerticalAlignment="Top" MouseDoubleClick="StoresListView_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding StoreId}" Width="100"/>
+                    <GridViewColumn Header="Адрес" DisplayMemberBinding="{Binding Address}" Width="380"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Подробности -->
+        <StackPanel Orientation="Vertical" Margin="150,380,150,20">
+            <TextBlock Text="Адрес:"/>
+            <TextBox x:Name="StoreAddressTextBox"/>
+
+            <Button Content="Сохранить изменения" Margin="0,10,0,0" Click="SaveChanges_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
