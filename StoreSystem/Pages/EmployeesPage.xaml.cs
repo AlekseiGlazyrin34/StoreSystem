@@ -17,13 +17,13 @@ namespace StoreSystem
         public EmployeesPage()
         {
             InitializeComponent();
-            //LoadEmployees();
+            LoadEmployees();
         }
 
         private async void LoadEmployees()
         {
             var response = await UserSession.Instance.SendAuthorizedRequest(() =>
-                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7006/api/employees"));
+                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7072/employees"));
 
             var json = await response.Content.ReadAsStringAsync();
             employees = JsonSerializer.Deserialize<List<EmployeeModel>>(json);
@@ -35,10 +35,10 @@ namespace StoreSystem
             if (EmployeesListView.SelectedItem is EmployeeModel emp)
             {
                 selectedEmployee = emp;
-                EmployeeIdTextBox.Text = emp.EmployeeId.ToString();
-                EmployeeNameTextBox.Text = emp.Name;
-                ContactInfoTextBox.Text = emp.ContactInfo;
-                StoreAddressTextBox.Text = emp.StoreAddress;
+                EmployeeIdTextBox.Text = emp.employeeId.ToString();
+                EmployeeNameTextBox.Text = emp.name;
+                ContactInfoTextBox.Text = emp.contactInfo;
+                StoreAddressTextBox.Text = emp.storeName;
             }
         }
 
@@ -46,11 +46,11 @@ namespace StoreSystem
         {
             if (selectedEmployee == null) return;
 
-            selectedEmployee.Name = EmployeeNameTextBox.Text;
-            selectedEmployee.ContactInfo = ContactInfoTextBox.Text;
-            selectedEmployee.StoreAddress = StoreAddressTextBox.Text;
+            selectedEmployee.name = EmployeeNameTextBox.Text;
+            selectedEmployee.contactInfo = ContactInfoTextBox.Text;
+            selectedEmployee.storeName = StoreAddressTextBox.Text;
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7006/api/employees/update")
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7072/employeesupdate")
             {
                 Content = new StringContent(JsonSerializer.Serialize(selectedEmployee), Encoding.UTF8, "application/json")
             };
@@ -66,10 +66,12 @@ namespace StoreSystem
 
     public class EmployeeModel
     {
-        public int EmployeeId { get; set; }
-        public string Name { get; set; }
-        public int StoreId { get; set; }
-        public string ContactInfo { get; set; }
-        public string StoreAddress { get; set; }
+        public int employeeId { get; set; }
+        public string name { get; set; }
+        public int storeId { get; set; }
+        public string storeName { get; set; }
+
+        public string contactInfo { get; set; }
+        
     }
 }

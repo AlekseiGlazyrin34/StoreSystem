@@ -26,13 +26,13 @@ namespace StoreSystem
         public PartnersPage()
         {
             InitializeComponent();
-            //LoadPartners();
+            LoadPartners();
         }
 
         private async void LoadPartners()
         {
             var response = await UserSession.Instance.SendAuthorizedRequest(() =>
-                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7006/api/partners"));
+                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7072/partners"));
 
             var json = await response.Content.ReadAsStringAsync();
             partners = JsonSerializer.Deserialize<List<PartnerModel>>(json);
@@ -44,8 +44,8 @@ namespace StoreSystem
             if (PartnersListView.SelectedItem is PartnerModel partner)
             {
                 selectedPartner = partner;
-                PartnerNameTextBox.Text = partner.Name;
-                PartnerContactInfoTextBox.Text = partner.ContactInfo;
+                PartnerNameTextBox.Text = partner.name;
+                PartnerContactInfoTextBox.Text = partner.contactInfo;
             }
         }
 
@@ -53,10 +53,10 @@ namespace StoreSystem
         {
             if (selectedPartner == null) return;
 
-            selectedPartner.Name = PartnerNameTextBox.Text;
-            selectedPartner.ContactInfo = PartnerContactInfoTextBox.Text;
+            selectedPartner.name = PartnerNameTextBox.Text;
+            selectedPartner.contactInfo = PartnerContactInfoTextBox.Text;
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7006/api/partners/update")
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7072/partnersupdate")
             {
                 Content = new StringContent(JsonSerializer.Serialize(selectedPartner), Encoding.UTF8, "application/json")
             };
@@ -72,9 +72,9 @@ namespace StoreSystem
 
     public class PartnerModel
     {
-        public int PartnerId { get; set; }
-        public string Name { get; set; }
-        public string ContactInfo { get; set; }
+        public int partnerId { get; set; }
+        public string name { get; set; }
+        public string contactInfo { get; set; }
     }
 
 }

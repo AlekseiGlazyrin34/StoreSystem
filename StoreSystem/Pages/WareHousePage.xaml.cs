@@ -17,13 +17,13 @@ namespace StoreSystem
         public WareHousePage()
         {
             InitializeComponent();
-            //LoadWarehouseItems();
+            LoadWarehouseItems();
         }
 
         private async void LoadWarehouseItems()
         {
             var response = await UserSession.Instance.SendAuthorizedRequest(() =>
-                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7006/warehouse"));
+                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7072/warehouse"));
 
             var json = await response.Content.ReadAsStringAsync();
             items = JsonSerializer.Deserialize<List<WarehouseItem>>(json);
@@ -35,9 +35,9 @@ namespace StoreSystem
             if (WarehouseListView.SelectedItem is WarehouseItem item)
             {
                 selectedItem = item;
-                StoreNameTextBox.Text = item.StoreName;
-                ProductNameTextBox.Text = item.ProductName;
-                QuantityTextBox.Text = item.Quantity.ToString();
+                StoreNameTextBox.Text = item.storeName;
+                ProductNameTextBox.Text = item.productName;
+                QuantityTextBox.Text = item.quantity.ToString();
             }
         }
 
@@ -45,11 +45,11 @@ namespace StoreSystem
         {
             if (selectedItem == null) return;
 
-            selectedItem.StoreName = StoreNameTextBox.Text;
-            selectedItem.ProductName = ProductNameTextBox.Text;
-            selectedItem.Quantity = int.Parse(QuantityTextBox.Text);
+            selectedItem.storeName = StoreNameTextBox.Text;
+            selectedItem.productName = ProductNameTextBox.Text;
+            selectedItem.quantity = int.Parse(QuantityTextBox.Text);
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7006/warehouseupdate")
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7072/warehouseupdate")
             {
                 Content = new StringContent(JsonSerializer.Serialize(selectedItem), Encoding.UTF8, "application/json")
             };
@@ -65,10 +65,10 @@ namespace StoreSystem
 
     public class WarehouseItem
     {
-        public int Id { get; set; } // Для обновления записи
-        public string StoreName { get; set; }
-        public string ProductName { get; set; }
-        public int Quantity { get; set; }
+        public int id { get; set; } // Для обновления записи
+        public string storeName { get; set; }
+        public string productName { get; set; }
+        public int quantity { get; set; }
     }
 }
 

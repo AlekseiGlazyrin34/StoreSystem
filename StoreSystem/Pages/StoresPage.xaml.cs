@@ -26,13 +26,13 @@ namespace StoreSystem
         public StoresPage()
         {
             InitializeComponent();
-            //LoadStores();
+            LoadStores();
         }
 
         private async void LoadStores()
         {
             var response = await UserSession.Instance.SendAuthorizedRequest(() =>
-                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7006/api/stores"));
+                new HttpRequestMessage(HttpMethod.Get, "https://localhost:7072/stores"));
 
             var json = await response.Content.ReadAsStringAsync();
             stores = JsonSerializer.Deserialize<List<StoreModel>>(json);
@@ -44,7 +44,7 @@ namespace StoreSystem
             if (StoresListView.SelectedItem is StoreModel store)
             {
                 selectedStore = store;
-                StoreAddressTextBox.Text = store.Address;
+                StoreAddressTextBox.Text = store.address;
             }
         }
 
@@ -52,9 +52,9 @@ namespace StoreSystem
         {
             if (selectedStore == null) return;
 
-            selectedStore.Address = StoreAddressTextBox.Text;
+            selectedStore.address = StoreAddressTextBox.Text;
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7006/api/stores/update")
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7072/storesupdate")
             {
                 Content = new StringContent(JsonSerializer.Serialize(selectedStore), Encoding.UTF8, "application/json")
             };
@@ -70,8 +70,8 @@ namespace StoreSystem
 
     public class StoreModel
     {
-        public int StoreId { get; set; }
-        public string Address { get; set; }
+        public int storeId { get; set; }
+        public string address { get; set; }
     }
 
 }

@@ -10,8 +10,8 @@
         <ListView x:Name="ClientsListView" Height="300" Width="500" Margin="150,60,150,0" VerticalAlignment="Top" MouseDoubleClick="ClientsListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID клиента" DisplayMemberBinding="{Binding ClientId}" Width="120"/>
-                    <GridViewColumn Header="Имя клиента" DisplayMemberBinding="{Binding Name}" Width="300"/>
+                    <GridViewColumn Header="ID клиента" DisplayMemberBinding="{Binding clientId}" Width="120"/>
+                    <GridViewColumn Header="Имя клиента" DisplayMemberBinding="{Binding name}" Width="300"/>
                 </GridView>
             </ListView.View>
         </ListView>

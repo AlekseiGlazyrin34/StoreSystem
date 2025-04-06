@@ -10,9 +10,9 @@
         <ListView x:Name="PartnersListView" Height="300" Width="600" Margin="100,60,100,0" VerticalAlignment="Top" MouseDoubleClick="PartnersListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding PartnerId}" Width="100"/>
-                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}" Width="250"/>
-                    <GridViewColumn Header="Контактная информация" DisplayMemberBinding="{Binding ContactInfo}" Width="250"/>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding partnerId}" Width="100"/>
+                    <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding name}" Width="250"/>
+                    <GridViewColumn Header="Контактная информация" DisplayMemberBinding="{Binding contactInfo}" Width="250"/>
                 </GridView>
             </ListView.View>
         </ListView>

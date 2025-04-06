@@ -10,9 +10,9 @@
         <ListView x:Name="WarehouseListView" Height="300" Width="600" Margin="100,60,100,0" VerticalAlignment="Top" MouseDoubleClick="WarehouseListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Магазин" DisplayMemberBinding="{Binding StoreName}" Width="200"/>
-                    <GridViewColumn Header="Продукт" DisplayMemberBinding="{Binding ProductName}" Width="200"/>
-                    <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quantity}" Width="100"/>
+                    <GridViewColumn Header="Магазин" DisplayMemberBinding="{Binding storeName}" Width="200"/>
+                    <GridViewColumn Header="Продукт" DisplayMemberBinding="{Binding productName}" Width="200"/>
+                    <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding quantity}" Width="100"/>
                 </GridView>
             </ListView.View>
         </ListView>
